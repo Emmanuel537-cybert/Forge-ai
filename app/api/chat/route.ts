@@ -19,11 +19,11 @@ export async function POST(req: Request) {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey.trim()}`,
-      'HTTP-Referer': 'https://forge-ai-cr6w.vercel.app',
+      'HTTP-Referer': 'https://forge-ai-rho-beige.vercel.app',
       'X-Title': 'Forge AI',
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3.1-8b-instruct:free',
+      model: 'deepseek/deepseek-r1:free',
       messages: cleanMessages,
     }),
   });
