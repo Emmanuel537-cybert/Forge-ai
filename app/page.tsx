@@ -54,7 +54,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full bg-[#0b0f17] text-white font-sans flex flex-col justify-between relative overflow-hidden">
-      {/* Background Gradient Style Lovable Exact */}
+      {/* Background Gradient Style */}
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0b0f17] to-orange-600/70" />
 
       {/* Header */}
@@ -66,11 +66,12 @@ export default function Home() {
           <Menu className="w-5 h-5 text-slate-300" />
         </button>
 
+        {/* Logo ak Non Aplikasyon pa w la */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-orange-500 to-pink-500 flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
             <Sparkles className="w-3.5 h-3.5 text-white fill-white" />
           </div>
-          <span className="font-bold text-xl tracking-tight text-white">Lovable</span>
+          <span className="font-bold text-xl tracking-tight text-white">forge.ai</span>
         </div>
 
         <div className="flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-700/60">
@@ -113,21 +114,21 @@ export default function Home() {
             {/* Top Tag Pill */}
             <div className="mb-6 inline-flex items-center gap-2 bg-[#121824]/90 border border-slate-700/60 rounded-full px-4 py-1.5 text-xs text-slate-300 shadow-md">
               <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
-              <span>Connectez tous vos outils</span>
+              <span>Konekte tout zouti w yo</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
             </div>
 
             {/* Title */}
             <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-white tracking-tight">
-              Créons quelque chose, Emmanuel
+              Ann kreye yon bagay, Emmanuel
             </h1>
 
-            {/* Exact Lovable Input Box */}
+            {/* Input Box */}
             <div className="w-full bg-[#161c28]/95 rounded-2xl border border-slate-700/60 p-4 shadow-2xl backdrop-blur-md">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Créer une application web qui..."
+                placeholder="Kreye yon aplikasyon web ki..."
                 rows={2}
                 className="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm focus:outline-none resize-none"
               />
@@ -141,7 +142,6 @@ export default function Home() {
                     <Mic className="w-5 h-5" />
                   </button>
 
-                  {/* Lovable "Créer" Split Dropdown Button */}
                   <div className="flex items-center bg-[#2d3748] hover:bg-[#3a475c] text-slate-200 rounded-xl overflow-hidden transition-colors border border-slate-600/40">
                     <button
                       type="button"
@@ -149,7 +149,7 @@ export default function Home() {
                       disabled={isLoading || !input.trim()}
                       className="px-3.5 py-1.5 font-medium text-xs disabled:opacity-50"
                     >
-                      Créer
+                      Kreye
                     </button>
                     <div className="w-[1px] h-4 bg-slate-600/60" />
                     <button type="button" className="px-2 py-1.5 text-slate-300">
