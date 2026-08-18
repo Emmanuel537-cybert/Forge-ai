@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       'X-Title': 'Forge AI',
     },
     body: JSON.stringify({
-      model: 'deepseek/deepseek-r1:free',
+      model: 'google/gemini-2.0-flash-lite-001:free',
       messages: cleanMessages,
     }),
   });
