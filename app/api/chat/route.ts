@@ -14,7 +14,6 @@ export async function POST(req: Request) {
     incomingMessages = [{ role: 'user', content: String(userPrompt) }];
   }
 
-  // System Prompt pou fòse AI a jenere kòd vizyèl dirèkteman
   const systemMessage = {
     role: 'system',
     content: `Ou se forge.ai, yon AI builder pwofesyonèl. Lè itilizatè a mande w kreye yon aplikasyon, PA bay esplikasyon ni poze anpil kesyon. Jenere kòd HTML/Tailwind CSS konplè ak fonksyonèl pou aplikasyon an imedyatman nan yon sèl blòk kòd HTML. Ou dwe bay kòd ki bèl, pwofesyonèl, epi ki ka afiche sou ekran an dirèkteman.`
@@ -37,7 +36,7 @@ export async function POST(req: Request) {
       'X-Title': 'Forge AI',
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3.3-70b-instruct:free',
+      model: 'openrouter/auto',
       messages: cleanMessages,
     }),
   });
