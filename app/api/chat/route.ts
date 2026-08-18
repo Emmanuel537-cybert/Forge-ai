@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       'X-Title': 'Forge AI',
     },
     body: JSON.stringify({
-      model: 'openrouter/auto',
+      model: 'qwen/qwen-2.5-coder-32b-instruct:free',
       messages: cleanMessages,
     }),
   });
