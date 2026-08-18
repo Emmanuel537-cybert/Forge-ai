@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
-import {
-  Sparkles, Menu, X, Plus, Mic, ArrowUpRight, Folder, CreditCard, User
-} from "lucide-react";
+import { Sparkles, Menu, X, Plus, Mic, ArrowUpRight, CreditCard, User } from "lucide-react";
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [creditsHTG, setCreditsHTG] = useState(250.00);
@@ -47,34 +45,33 @@ export default function Home() {
     }
   };
   return (
-    <div className="relative min-h-screen w-full bg-slate-950 text-white font-sans overflow-x-hidden flex flex-col justify-between">
-      {/* Background Gradient Style Lovable */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-slate-950 via-slate-900 to-orange-600/80 opacity-90" />
-      {/* Header / Top Navigation */}
-      <header className="relative z-10 flex items-center justify-between p-4 md:px-8">
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 bg-slate-800/60 rounded-full border border-slate-700/50 hover:bg-slate-700/60 transition-colors"
-          >
-            <Menu className="w-5 h-5 text-slate-200" />
-          </button>
-        </div>
+    <div className="min-h-screen w-full bg-slate-950 text-white font-sans flex flex-col justify-between relative overflow-y-auto">
+      {/* Background Style Lovable */}
+      <div className="fixed inset-0 pointer-events-none bg-gradient-to-b from-slate-950 via-slate-900 to-orange-600/80" />
+
+      {/* Header */}
+      <header className="relative z-20 flex items-center justify-between p-4 md:px-8">
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="p-2 bg-slate-800/80 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+        >
+          <Menu className="w-5 h-5 text-slate-200" />
+        </button>
 
         <div className="flex items-center gap-2">
           <Sparkles className="w-6 h-6 text-pink-500 fill-pink-500" />
           <span className="font-bold text-xl tracking-tight text-white">forge.ai</span>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-700/50">
+        <div className="flex items-center gap-2 bg-slate-900/90 px-3 py-1.5 rounded-full border border-slate-700">
           <CreditCard className="w-4 h-4 text-emerald-400" />
           <span className="text-xs font-semibold text-emerald-400">{creditsHTG.toFixed(2)} HTG</span>
         </div>
       </header>
 
-      {/* Sidebar Drawer */}
+      {/* Sidebar */}
       {isSidebarOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex">
+        <div className="fixed inset-0 z-50 bg-black/70 flex">
           <div className="w-72 bg-slate-900 h-full p-4 flex flex-col justify-between border-r border-slate-800">
             <div>
               <div className="flex items-center justify-between mb-6">
@@ -99,65 +96,59 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main Content / Center Area */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 py-8 max-w-3xl mx-auto w-full">
+      {/* Main Container */}
+      <main className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 py-6 max-w-2xl mx-auto w-full">
         {messages.length === 0 ? (
-          <>
-            {/* Top Pill Integration */}
-            <div className="mb-6 inline-flex items-center gap-2 bg-slate-900/90 border border-slate-700/60 rounded-full px-4 py-1.5 text-xs text-slate-300 shadow-lg">
+          <div className="w-full flex flex-col items-center">
+            {/* Tag */}
+            <div className="mb-6 inline-flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-full px-4 py-1.5 text-xs text-slate-300">
               <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Connectez tous vos outils</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl md:text-4xl font-semibold text-center mb-8 tracking-tight text-white">
+            <h1 className="text-2xl md:text-4xl font-semibold text-center mb-6 text-white">
               Créons quelque chose, Emmanuel
             </h1>
-
-            {/* Lovable Input Box */}
-            <div className="w-full bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-700/70 p-4 shadow-2xl">
+            {/* Input Box Active */}
+            <div className="w-full bg-slate-900 rounded-2xl border border-slate-700 p-3 shadow-2xl">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSend();
-                  }
-                }}
                 placeholder="Créer une application web qui..."
-                rows={2}
-                className="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm focus:outline-none resize-none"
+                rows={3}
+                className="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm focus:outline-none resize-none p-1"
               />
-              <div className="flex items-center justify-between pt-2 border-t border-slate-800/80">
-                <button className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800/50 transition-colors">
+              <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+                <button type="button" className="p-2 text-slate-400 hover:text-white">
                   <Plus className="w-5 h-5" />
                 </button>
                 <div className="flex items-center gap-2">
-                  <button className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800/50 transition-colors">
+                  <button type="button" className="p-2 text-slate-400 hover:text-white">
                     <Mic className="w-5 h-5" />
                   </button>
                   <button
+                    type="button"
                     onClick={handleSend}
                     disabled={isLoading || !input.trim()}
-                    className="bg-slate-100 hover:bg-white text-slate-950 px-4 py-1.5 rounded-xl font-medium text-sm flex items-center gap-1 transition-colors disabled:opacity-50"
+                    className="bg-slate-200 hover:bg-white text-slate-950 px-4 py-2 rounded-xl font-medium text-sm transition-colors disabled:opacity-50"
                   >
-                    <span>Créer</span>
+                    Créer
                   </button>
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ) : (
-          /* Chat Stream Output */
+          /* Chat Area */
           <div className="w-full space-y-4 my-auto">
             {messages.map((m, idx) => (
               <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[90%] rounded-2xl px-5 py-3.5 text-sm leading-relaxed ${
+                <div className={`max-w-[90%] rounded-2xl px-5 py-3 text-sm leading-relaxed ${
                   m.role === 'user'
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-slate-900/90 border border-slate-700 text-slate-100 backdrop-blur-md'
+                    : 'bg-slate-900 border border-slate-700 text-slate-100'
                 }`}>
                   {m.content}
                 </div>
@@ -171,17 +162,16 @@ export default function Home() {
             <div className="pt-4 flex justify-center">
               <button 
                 onClick={() => setMessages([])} 
-                className="text-xs bg-slate-800/80 hover:bg-slate-800 border border-slate-700 px-4 py-2 rounded-full text-slate-300"
+                className="text-xs bg-slate-800 border border-slate-700 px-4 py-2 rounded-full text-slate-300"
               >
-                + Kòmanse yon nouvo kreyasyon
+                + Nouvo pwojè
               </button>
             </div>
           </div>
         )}
       </main>
-
-      {/* Footer Space */}
-      <footer className="relative z-10 p-4 text-center text-xs text-slate-400">
+      {/* Footer */}
+      <footer className="relative z-20 p-4 text-center text-xs text-slate-400">
         forge.ai — Powered by OpenRouter
       </footer>
     </div>
