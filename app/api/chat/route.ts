@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       'Authorization': `Bearer ${apiKey.trim()}`,
     },
     body: JSON.stringify({
-      model: 'llama3-70b-8192',
+      model: 'llama-3.1-8b-instant',
       messages: cleanMessages,
     }),
   });
