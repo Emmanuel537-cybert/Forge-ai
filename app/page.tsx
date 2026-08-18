@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Sparkles, Menu, X, Plus, Mic, ArrowUpRight, CreditCard, User, ChevronDown, ArrowUp } from "lucide-react";
+import { Sparkles, Menu, X, Plus, Mic, ArrowUpRight, CreditCard, User, ChevronDown, ArrowUp, Code2, Eye } from "lucide-react";
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -54,11 +54,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full bg-[#0b0f17] text-white font-sans flex flex-col justify-between relative overflow-x-hidden">
-      {/* Background Gradient Exact */}
+      {/* Background Gradient */}
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0b0f17] to-orange-600/80" />
 
       {/* Header */}
-      <header className="relative z-20 flex items-center justify-between p-4 md:px-8">
+      <header className="relative z-20 flex items-center justify-between p-4 md:px-8 border-b border-slate-800/50 bg-[#0b0f17]/80 backdrop-blur-md">
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="p-2.5 bg-slate-800/40 rounded-full border border-slate-700/50 hover:bg-slate-700/50 transition-colors"
@@ -66,9 +66,9 @@ export default function Home() {
           <Menu className="w-5 h-5 text-slate-300" />
         </button>
 
-        {/* Logo forge.ai */}
+        {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-orange-500 to-pink-500 flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
             <Sparkles className="w-3.5 h-3.5 text-white fill-white" />
           </div>
           <span className="font-bold text-xl tracking-tight text-white">forge.ai</span>
@@ -80,7 +80,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Sidebar Drawer */}
+      {/* Sidebar */}
       {isSidebarOpen && (
         <div className="fixed inset-0 z-50 bg-black/70 flex">
           <div className="w-72 bg-[#0d1117] h-full p-4 flex flex-col justify-between border-r border-slate-800">
@@ -108,96 +108,90 @@ export default function Home() {
       )}
 
       {/* Main Area */}
-      <main className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 py-6 max-w-2xl mx-auto w-full">
+      <main className="relative z-20 flex-1 flex flex-col items-center justify-between px-4 py-6 max-w-3xl mx-auto w-full">
         {messages.length === 0 ? (
-          <div className="w-full flex flex-col items-center">
-            {/* Top Tag Pill */}
+          <div className="w-full flex flex-col items-center my-auto">
             <div className="mb-6 inline-flex items-center gap-2 bg-[#121824]/90 border border-slate-700/60 rounded-full px-4 py-1.5 text-xs text-slate-300 shadow-md">
               <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
               <span>Konekte tout zouti w yo</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
             </div>
 
-            {/* Title */}
             <h1 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-white tracking-tight">
               Ann kreye yon bagay, Emmanuel
             </h1>
-
-            {/* Input Box Exact Lovable Style */}
-            <div className="w-full bg-[#182030]/95 rounded-3xl border border-slate-700/60 p-4 shadow-2xl backdrop-blur-md">
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Kreye yon aplikasyon web ki..."
-                rows={2}
-                className="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm focus:outline-none resize-none"
-              />
-              <div className="flex items-center justify-between pt-3 mt-1 border-t border-slate-800/80">
-                <button type="button" className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
-                  <Plus className="w-5 h-5" />
-                </button>
-
-                <div className="flex items-center gap-2">
-                  {/* Dropdown "Kreye" */}
-                  <div className="flex items-center text-slate-300 text-xs font-medium px-2 py-1 gap-1">
-                    <span>Kreye</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
-                  </div>
-
-                  <button type="button" className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
-                    <Mic className="w-5 h-5" />
-                  </button>
-
-                  {/* Bouton flèch pou voye pwojè a (↑) */}
-                  <button
-                    type="button"
-                    onClick={handleSend}
-                    disabled={isLoading || !input.trim()}
-                    className={`p-2 rounded-full transition-all flex items-center justify-center ${
-                      input.trim() 
-                        ? 'bg-white text-slate-950 hover:bg-slate-200 cursor-pointer' 
-                        : 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                    }`}
-                  >
-                    <ArrowUp className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         ) : (
-          /* Stream Repons Chat la */
-          <div className="w-full space-y-4 my-auto">
+          /* Conversation Stream Area */
+          <div className="w-full space-y-4 mb-6 overflow-y-auto max-h-[60vh] p-2">
             {messages.map((m, idx) => (
               <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[90%] rounded-2xl px-5 py-3 text-sm leading-relaxed ${
+                <div className={`max-w-[95%] rounded-2xl px-5 py-3.5 text-sm leading-relaxed ${
                   m.role === 'user'
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-[#182030] border border-slate-700 text-slate-100'
+                    : 'bg-[#182030] border border-slate-700 text-slate-100 shadow-lg'
                 }`}>
                   {m.content}
                 </div>
               </div>
             ))}
             {isLoading && (
-              <div className="text-center text-xs text-slate-300 animate-pulse">
-                forge.ai ap travay sou pwojè w la...
+              <div className="text-center text-xs text-slate-300 animate-pulse py-2">
+                forge.ai ap kòde aplikasyon w lan...
               </div>
             )}
-            <div className="pt-4 flex justify-center">
-              <button 
-                onClick={() => setMessages([])} 
-                className="text-xs bg-slate-800 border border-slate-700 px-4 py-2 rounded-full text-slate-300"
+          </div>
+        )}
+
+        {/* Permanent Bottom Input Area */}
+        <div className="w-full bg-[#182030]/95 rounded-3xl border border-slate-700/60 p-4 shadow-2xl backdrop-blur-md sticky bottom-4 z-30">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            placeholder="Dekri sa w vle kreye oswa sa w vle modifye..."
+            rows={2}
+            className="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm focus:outline-none resize-none"
+          />
+          <div className="flex items-center justify-between pt-3 mt-1 border-t border-slate-800/80">
+            <button type="button" className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
+              <Plus className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-2">
+              <div className="flex items-center text-slate-300 text-xs font-medium px-2 py-1 gap-1">
+                <span>Kreye</span>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              </div>
+
+              <button type="button" className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
+                <Mic className="w-5 h-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={handleSend}
+                disabled={isLoading || !input.trim()}
+                className={`p-2 rounded-full transition-all flex items-center justify-center ${
+                  input.trim() 
+                    ? 'bg-white text-slate-950 hover:bg-slate-200 cursor-pointer' 
+                    : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                }`}
               >
-                + Nouvo pwojè
+                <ArrowUp className="w-4 h-4" />
               </button>
             </div>
           </div>
-        )}
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="relative z-20 p-4 text-center text-xs text-slate-500">
+      <footer className="relative z-20 p-2 text-center text-xs text-slate-500">
         forge.ai — Powered by OpenRouter
       </footer>
     </div>
