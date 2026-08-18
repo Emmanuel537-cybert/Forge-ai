@@ -27,7 +27,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: data.error?.message || 'Erè nan Groq' }, { status: response.status });
     }
 
-    return NextResponse.json(data);
+    const aiContent = data.choices?.[0]?.message?.content || "";
+    return NextResponse.json({ content: aiContent, code: aiContent, message: aiContent });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
