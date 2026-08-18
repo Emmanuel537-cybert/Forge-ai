@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Sparkles, Menu, X, Plus, Mic, ArrowUpRight, CreditCard, User, ChevronDown } from "lucide-react";
+import { Sparkles, Menu, X, Plus, Mic, ArrowUpRight, CreditCard, User, ChevronDown, ArrowUp } from "lucide-react";
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -53,9 +53,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#0b0f17] text-white font-sans flex flex-col justify-between relative overflow-hidden">
-      {/* Background Gradient Style */}
-      <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0b0f17] to-orange-600/70" />
+    <div className="min-h-screen w-full bg-[#0b0f17] text-white font-sans flex flex-col justify-between relative overflow-x-hidden">
+      {/* Background Gradient Exact */}
+      <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0b0f17] to-orange-600/80" />
 
       {/* Header */}
       <header className="relative z-20 flex items-center justify-between p-4 md:px-8">
@@ -66,9 +66,9 @@ export default function Home() {
           <Menu className="w-5 h-5 text-slate-300" />
         </button>
 
-        {/* Logo ak Non Aplikasyon pa w la */}
+        {/* Logo forge.ai */}
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-orange-500 to-pink-500 flex items-center justify-center">
             <Sparkles className="w-3.5 h-3.5 text-white fill-white" />
           </div>
           <span className="font-bold text-xl tracking-tight text-white">forge.ai</span>
@@ -80,7 +80,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Sidebar */}
+      {/* Sidebar Drawer */}
       {isSidebarOpen && (
         <div className="fixed inset-0 z-50 bg-black/70 flex">
           <div className="w-72 bg-[#0d1117] h-full p-4 flex flex-col justify-between border-r border-slate-800">
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main Container */}
+      {/* Main Area */}
       <main className="relative z-20 flex-1 flex flex-col items-center justify-center px-4 py-6 max-w-2xl mx-auto w-full">
         {messages.length === 0 ? (
           <div className="w-full flex flex-col items-center">
@@ -123,8 +123,8 @@ export default function Home() {
               Ann kreye yon bagay, Emmanuel
             </h1>
 
-            {/* Input Box */}
-            <div className="w-full bg-[#161c28]/95 rounded-2xl border border-slate-700/60 p-4 shadow-2xl backdrop-blur-md">
+            {/* Input Box Exact Lovable Style */}
+            <div className="w-full bg-[#182030]/95 rounded-3xl border border-slate-700/60 p-4 shadow-2xl backdrop-blur-md">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -132,43 +132,48 @@ export default function Home() {
                 rows={2}
                 className="w-full bg-transparent text-slate-100 placeholder-slate-400 text-sm focus:outline-none resize-none"
               />
-              <div className="flex items-center justify-between pt-3 mt-2 border-t border-slate-800/80">
+              <div className="flex items-center justify-between pt-3 mt-1 border-t border-slate-800/80">
                 <button type="button" className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
                   <Plus className="w-5 h-5" />
                 </button>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  {/* Dropdown "Kreye" */}
+                  <div className="flex items-center text-slate-300 text-xs font-medium px-2 py-1 gap-1">
+                    <span>Kreye</span>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                  </div>
+
                   <button type="button" className="p-1.5 text-slate-400 hover:text-white rounded-lg transition-colors">
                     <Mic className="w-5 h-5" />
                   </button>
 
-                  <div className="flex items-center bg-[#2d3748] hover:bg-[#3a475c] text-slate-200 rounded-xl overflow-hidden transition-colors border border-slate-600/40">
-                    <button
-                      type="button"
-                      onClick={handleSend}
-                      disabled={isLoading || !input.trim()}
-                      className="px-3.5 py-1.5 font-medium text-xs disabled:opacity-50"
-                    >
-                      Kreye
-                    </button>
-                    <div className="w-[1px] h-4 bg-slate-600/60" />
-                    <button type="button" className="px-2 py-1.5 text-slate-300">
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
+                  {/* Bouton flèch pou voye pwojè a (↑) */}
+                  <button
+                    type="button"
+                    onClick={handleSend}
+                    disabled={isLoading || !input.trim()}
+                    className={`p-2 rounded-full transition-all flex items-center justify-center ${
+                      input.trim() 
+                        ? 'bg-white text-slate-950 hover:bg-slate-200 cursor-pointer' 
+                        : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    }`}
+                  >
+                    <ArrowUp className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         ) : (
-          /* Chat Output */
+          /* Stream Repons Chat la */
           <div className="w-full space-y-4 my-auto">
             {messages.map((m, idx) => (
               <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[90%] rounded-2xl px-5 py-3 text-sm leading-relaxed ${
                   m.role === 'user'
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-[#161c28] border border-slate-700 text-slate-100'
+                    : 'bg-[#182030] border border-slate-700 text-slate-100'
                 }`}>
                   {m.content}
                 </div>
@@ -176,7 +181,7 @@ export default function Home() {
             ))}
             {isLoading && (
               <div className="text-center text-xs text-slate-300 animate-pulse">
-                Forge-AI ap travay sou pwojè w la...
+                forge.ai ap travay sou pwojè w la...
               </div>
             )}
             <div className="pt-4 flex justify-center">
