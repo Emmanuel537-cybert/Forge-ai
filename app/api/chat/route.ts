@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ error: 'API Key manke nan Vercel Environment Variables.' }, { status: 500 });
+    return NextResponse.json({ error: 'API Key OPENROUTER manke nan Vercel.' }, { status: 500 });
   }
   let incomingMessages = body.messages;
   if (!Array.isArray(incomingMessages) || incomingMessages.length === 0) {
@@ -14,20 +14,22 @@ export async function POST(req: Request) {
     role: m.role === 'assistant' || m.role === 'ai' ? 'assistant' : 'user',
     content: String(m.content || m.text || ''),
   }));
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey.trim()}`,
+      'HTTP-Referer': 'https://forge-ai-cr6w.vercel.app',
+      'X-Title': 'Forge AI',
     },
     body: JSON.stringify({
-      model: 'mixtral-8x7b-32768',
+      model: 'meta-llama/llama-3.1-8b-instruct:free',
       messages: cleanMessages,
     }),
   });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
-    return NextResponse.json({ error: data.error?.message || 'Erè nan sèvè Groq la.' }, { status: response.status });
+    return NextResponse.json({ error: data.error?.message || 'Erè nan OpenRouter.' }, { status: response.status });
   }
   const aiText = data.choices?.[0]?.message?.content || "";
   return NextResponse.json({
