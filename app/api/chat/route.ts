@@ -1,30 +1,27 @@
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 export async function POST(req: Request) {
   try {
-    const { prompt } = await req.json();
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "GROQ_API_KEY is not defined" },
+        { status: 500 }
+      );
+    }
+
+    const groq = new Groq({ apiKey });
+    const body = await req.json();
+    const { messages } = body;
 
     const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "Ou se yon ekspè ki jenere kòd HTML/Tailwind CSS sèlman. Sèvi ak Tailwind CSS pou styled eleman an. Pa ekri okenn eksplikasyon, sèlman kòd HTML/Tailwind nan yon sèl ti bwat <div>.",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
+      messages,
       model: "llama-3.3-70b-versatile",
     });
 
-    const generatedCode = completion.choices[0]?.message?.content || "<div>Ere nan jenerasyon kòd la.</div>";
-    return NextResponse.json({ code: generatedCode });
-  } catch (error) {
-    return NextResponse.json({ error: "Ere ak Groq API" }, { status: 500 });
+    return NextResponse.json(completion.choices[0]?.message);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
