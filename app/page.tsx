@@ -1,8 +1,6 @@
 "use client";
-
 import { useState } from "react";
 import { Send, Bot, Eye, Code2, Copy, PlusCircle, Check, Loader2, Smartphone, Monitor } from "lucide-react";
-
 export default function Home() {
   const [messages, setMessages] = useState<{role: 'user' | 'ai', content: string}[]>([
     { role: 'ai', content: "Mwen pare! Mwen konekte ak Groq AI. Kisa w vle m kreye?" }
@@ -16,23 +14,19 @@ export default function Home() {
   <h1 className="text-xl font-bold text-indigo-400 mb-2">forge.ai + Groq AI</h1>
   <p className="text-slate-400 text-sm">Tape yon lide pou AI a kreye vrè kòd an tan reyèl!</p>
 </div>`);
-
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
-    
     const userText = input;
     const newMessages = [...messages, { role: 'user', content: userText }];
     setMessages(newMessages);
     setInput("");
     setIsLoading(true);
-
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: userText }),
       });
-
       const data = await res.json();
       if (data.code) {
         setGeneratedCode(data.code);
@@ -46,13 +40,11 @@ export default function Home() {
       setIsLoading(false);
     }
   };
-
   const handleCopy = () => {
     navigator.clipboard.writeText(generatedCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
   const handleNewProject = () => {
     setMessages([{ role: 'ai', content: "Nouvo pwojè kòmanse! Kisa w vle m kreye?" }]);
     setGeneratedCode(`<div className="p-6 bg-slate-900 text-white rounded-xl border border-slate-800 text-center">
@@ -61,7 +53,6 @@ export default function Home() {
 </div>`);
     setInput("");
   };
-
   return (
     <div className="flex h-screen bg-slate-950 text-white font-sans">
       {/* Sidebar */}
@@ -101,7 +92,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       {/* Main Preview/Code Section */}
       <div className="flex-1 flex flex-col">
         <div className="flex p-4 border-b border-slate-800 justify-between items-center bg-slate-900/50">
@@ -109,7 +99,6 @@ export default function Home() {
             <button onClick={() => setActiveTab('preview')} className={`flex items-center gap-2 px-3 py-1 rounded text-sm ${activeTab === 'preview' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}><Eye className="w-4 h-4"/> Preview</button>
             <button onClick={() => setActiveTab('code')} className={`flex items-center gap-2 px-3 py-1 rounded text-sm ${activeTab === 'code' ? 'bg-slate-800 text-white' : 'text-slate-400'}`}><Code2 className="w-4 h-4"/> Kòd</button>
           </div>
-
           {activeTab === 'preview' && (
             <div className="flex bg-slate-800 rounded p-1 gap-1">
               <button onClick={() => setViewMode('desktop')} className={`p-1 rounded ${viewMode === 'desktop' ? 'bg-indigo-600 text-white' : 'text-slate-400'}`}><Monitor className="w-4 h-4"/></button>
@@ -124,7 +113,6 @@ export default function Home() {
             </button>
           )}
         </div>
-
         <div className="flex-1 p-8 text-slate-300 font-mono text-sm overflow-auto flex items-center justify-center bg-slate-950/80">
            {activeTab === 'preview' ? (
              <div className={`transition-all duration-300 ${viewMode === 'mobile' ? 'w-[360px] h-[640px] border-4 border-slate-700 rounded-3xl p-4 bg-slate-900 overflow-y-auto shadow-2xl' : 'w-full max-w-2xl'}`} dangerouslySetInnerHTML={{ __html: generatedCode }} />
