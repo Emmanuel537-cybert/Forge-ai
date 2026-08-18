@@ -23,11 +23,12 @@ export async function POST(req: Request) {
       'X-Title': 'Forge AI',
     },
     body: JSON.stringify({
-      model: 'google/gemini-2.0-flash-lite-001:free',
+      model: 'openrouter/free',
       messages: cleanMessages,
     }),
   });
   const data = await response.json().catch(() => ({}));
+
   if (!response.ok) {
     return NextResponse.json({ error: data.error?.message || 'Erè nan OpenRouter.' }, { status: response.status });
   }
